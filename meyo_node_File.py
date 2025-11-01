@@ -10,7 +10,7 @@ from . import any_typ, note
 
 
 
-#======全能加载图像
+#======Generic Image Loader
 class GenericImageLoader:
     @classmethod
     def INPUT_TYPES(cls):
@@ -68,7 +68,7 @@ class GenericImageLoader:
         return img_tensor, mask_tensor 
 
 
-#======加载重置图像
+#======Load And Adjust Image
 class LoadAndAdjustImage:
     @classmethod
     def INPUT_TYPES(s):
@@ -200,14 +200,14 @@ class LoadAndAdjustImage:
         return width, height
 
 
-#======重置图像
+#======Image Adjuster
 class ImageAdjuster:
     @classmethod
     def INPUT_TYPES(s):
         return {
             "required": {
                 "image": ("IMAGE",),
-                "mask": ("MASK",),  # 添加遮罩输入
+                "mask": ("MASK",),  # add mask input
                 "max_dimension": ("INT", {"default": 0, "min": 0, "max": 4096, "step": 8}),
                 "size_option": ([
                     "Custom", "Million Pixels", "Small", "Medium", "Large", 
@@ -337,14 +337,14 @@ class ImageAdjuster:
         return width, height
 
 
-#======裁剪图像
+#======Custom Crop
 class CustomCrop:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "image": ("IMAGE",),
-                "mask": ("MASK",),  # 新增遮罩输入
+                "mask": ("MASK",),  # add mask input
                 "width": ("INT", {"default": 768, "min": 0, "max": 4096, "step": 8}),
                 "height": ("INT", {"default": 768, "min": 0, "max": 4096, "step": 8}),
             }
@@ -364,7 +364,7 @@ class CustomCrop:
         W, H = input_image.size
 
         processed_images = []
-        processed_masks = []  # 新增遮罩处理列表
+        processed_masks = []  # mask processing list
 
         for frame in [input_image]:
             frame = ImageOps.exif_transpose(frame)
@@ -381,7 +381,7 @@ class CustomCrop:
             processed_image = torch.from_numpy(processed_image)[None,]
             processed_images.append(processed_image)
 
-        # 处理遮罩
+        # process mask
         input_mask = ImageOps.exif_transpose(input_mask)
         processed_mask = input_mask.convert("L")  # 确保遮罩是灰度图像
         processed_mask = ImageOps.fit(processed_mask, (width, height), method=Image.Resampling.BILINEAR, centering=(0.5, 0.5))
@@ -395,7 +395,7 @@ class CustomCrop:
         return (output_image, output_mask, width, height)
 
 
-#======保存图像
+#======Save Image
 class SaveImagEX:
     def __init__(self):
         self.output_dir = folder_paths.get_output_directory()
@@ -428,7 +428,7 @@ class SaveImagEX:
             save_path = os.path.join(self.output_dir, save_path)
         os.makedirs(save_path, exist_ok=True)
         
-        # 移除可能存在的扩展名，然后添加用户选择的格式对应的扩展名
+        # Remove possible extension then add user-selected extension
         base_name = os.path.splitext(image_name)[0]
         
         batch_size = image.shape[0]
@@ -483,27 +483,27 @@ class FileCopyCutNode:
     def IS_CHANGED(): return float("NaN")
 
     def copy_cut_file(self, source_path, destination_path, operation, any=None):
-        result = "执行失败"
+        result = "Operation failed"
         try:
             if not os.path.isfile(source_path):
-                raise FileNotFoundError(f"源文件未找到: {source_path}")
+                raise FileNotFoundError(f"Source file not found: {source_path}")
 
             os.makedirs(os.path.dirname(destination_path), exist_ok=True)
 
             if operation == "copy":
                 shutil.copy2(source_path, destination_path)
-                result = "执行成功: 文件已复制"
+                result = "Success: file copied"
             elif operation == "cut":
                 shutil.move(source_path, destination_path)
-                result = "执行成功: 文件已剪切"
+                result = "Success: file moved"
             else:
-                raise ValueError("操作类型无效，仅支持 'copy' 或 'cut'。")
+                raise ValueError("Invalid operation type, only 'copy' or 'cut' is supported.")
         except FileNotFoundError as e:
-            result = f"执行失败: {str(e)}"
+            result = f"Operation failed: {str(e)}"
         except ValueError as e:
-            result = f"执行失败: {str(e)}"
+            result = f"Operation failed: {str(e)}"
         except Exception as e:
-            result = f"执行失败: {str(e)}"
+            result = f"Operation failed: {str(e)}"
 
         return (result,)
 
@@ -609,16 +609,16 @@ class FileDeleteNode:
                             shutil.rmtree(file_or_dir)
                     continue
                 except Exception as e:
-                    error_messages.append(f"从output目录删除全部失败: {str(e)}")
+                    error_messages.append(f"Failed to delete all from output directory: {str(e)}")
                     continue
             target_path = base_output_dir / item
             try:
                 target_path.relative_to(base_output_dir)
             except ValueError:
-                error_messages.append(f"{item} 不在output目录范围内，无法删除")
+                error_messages.append(f"{item} is outside output directory and cannot be deleted")
                 continue
             if not target_path.exists():
-                error_messages.append(f"在output目录下找不到 {item}")
+                error_messages.append(f"Could not find {item} in output directory")
                 continue
             try:
                 if target_path.is_file() or target_path.is_symlink():
@@ -626,9 +626,9 @@ class FileDeleteNode:
                 elif target_path.is_dir():
                     shutil.rmtree(target_path)
             except Exception as e:
-                error_messages.append(f"从output目录删除 {item} 失败: {str(e)}")
-        if error_messages:
-            result = "部分执行失败:\n" + "\n".join(error_messages)
+                error_messages.append(f"Failed to delete {item} from output directory: {str(e)}")
+            if error_messages:
+                result = "Partial failure:\n" + "\n".join(error_messages)
         return (result,)
 
 
@@ -1343,5 +1343,3 @@ class ReadExcelRowOrColumnDiff:
 
         except Exception as e:
             return (f"Error: {str(e)}",)
-
-

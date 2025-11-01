@@ -4,7 +4,7 @@ from . import any_typ, note
 
 
 
-#======比较数值
+#======Compare Numbers
 class CompareInt:
     @classmethod
     def INPUT_TYPES(cls):
@@ -29,23 +29,23 @@ class CompareInt:
             else:
                 lower_bound = upper_bound = float(range)
             if input_float < lower_bound:
-                return ("小",)
+                return ("Below",)
             elif input_float > upper_bound:
-                return ("大",)
+                return ("Above",)
             else:
-                return ("中",)
+                return ("Within",)
         except ValueError:
             return ("Error: Invalid input format.",) 
 
 
-#======规范数值
+#======Normalize Number
 class FloatToInteger:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "float_value": ("FLOAT", {"default": 3.14}),
-                "operation": (["四舍五入", "取大值", "取小值", "最近32倍"], {"default": "四舍五入"}),
+                "operation": (["Round", "Ceil", "Floor", "Nearest 32-multiple"], {"default": "Round"}),
             },
             "optional": {"any": (any_typ,)} 
         }
@@ -57,25 +57,25 @@ class FloatToInteger:
     def IS_CHANGED(): return float("NaN")
 
     def convert_float_to_integer(self, float_value, operation, any=None):
-        if operation == "四舍五入":
+        if operation == "Round":
             result = round(float_value)
-        elif operation == "取大值":
+        elif operation == "Ceil":
             result = math.ceil(float_value)
-        elif operation == "取小值":
+        elif operation == "Floor":
             result = math.floor(float_value)
-        elif operation == "最近32倍":
+        elif operation == "Nearest 32-multiple":
             result = round(float_value / 32) * 32
         return (result,)
 
 
-#======生成范围数组
+#======Generate Numbers
 class GenerateNumbers:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "range_rule": ("STRING", {"default": "3|1-10"}),
-                "mode": (["顺序", "随机"], {"default": "顺序"}),
+                "mode": (["Sequential", "Random"], {"default": "Sequential"}),
                 "prefix_suffix": ("STRING", {"default": "|"}),
             },
             "optional": {"any": (any_typ,)} 
@@ -102,7 +102,7 @@ class GenerateNumbers:
                 prefix, suffix = prefix_suffix.split('|')
             else:
                 prefix, suffix = "", ""
-            if mode == "随机":
+            if mode == "Random":
                 random.shuffle(numbers)
             numbers = [f"{prefix}{num}{suffix}" for num in numbers]
             result = '\n'.join(numbers)
@@ -111,7 +111,7 @@ class GenerateNumbers:
             return ("",)
 
 
-#======范围内随机数
+#======Random Integer in Range
 class GetRandomIntegerInRange:
     @classmethod
     def INPUT_TYPES(cls):
@@ -137,4 +137,3 @@ class GetRandomIntegerInRange:
             return (random_int, str(random_int))
         except ValueError:
             return (0, "0")
-        

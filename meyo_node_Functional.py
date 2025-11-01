@@ -7,7 +7,7 @@ from . import any_typ, note
 
 
 
-#======当前时间(戳)
+#======Current Time (timestamp)
 class GetCurrentTime:
     @classmethod
     def INPUT_TYPES(cls):
@@ -31,7 +31,7 @@ class GetCurrentTime:
         return (formatted_time_with_prefix, timestamp)
 
 
-#======随机整数
+#======Random Integer
 class SimpleRandomSeed:
     @classmethod
     def INPUT_TYPES(cls):
@@ -57,7 +57,7 @@ class SimpleRandomSeed:
             return (f"Error: {str(e)}",)
 
         
-#======选择参数diy
+#======Selection Parameter
 class SelectionParameter:
     @classmethod
     def INPUT_TYPES(cls):
@@ -84,7 +84,7 @@ class SelectionParameter:
         return (combined_result,)
     
 
-#======读取页面
+#======Read Web Node
 class ReadWebNode:
     @classmethod
     def INPUT_TYPES(cls):
@@ -121,7 +121,7 @@ class ReadWebNode:
             return ('Error！解析失败，请检查后重试！',)
         
 
-#===VAE解码预览
+#===VAE Decode Preview
 class DecodePreview:
     @classmethod
     def INPUT_TYPES(cls):
@@ -158,4 +158,3 @@ class DecodePreview:
             counter += 1
 
         return {"ui": {"images": results}, "result": (images,)}
-    

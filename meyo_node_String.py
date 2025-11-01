@@ -3,7 +3,7 @@ from . import any_typ, note
 
 
 
-#======文本输入
+#======Text Input
 class SingleTextInput:
     @classmethod
     def INPUT_TYPES(cls):
@@ -24,7 +24,7 @@ class SingleTextInput:
         return (text,)
 
 
-#======文本到列表
+#======Text To List
 class TextToList:
     @classmethod
     def INPUT_TYPES(cls):
@@ -53,7 +53,7 @@ class TextToList:
         return (parts,)
 
 
-#======文本拼接
+#======Text Concatenator
 class TextConcatenator:
     @classmethod
     def INPUT_TYPES(cls):
@@ -102,7 +102,7 @@ class TextConcatenator:
             return (f"Error: {str(e)}",)
         
 
-#======多参数输入
+#======Multi Param Input
 class MultiParamInputNode:
     @classmethod
     def INPUT_TYPES(cls):
@@ -126,7 +126,7 @@ class MultiParamInputNode:
         return (text1, text2, int1, int2)
 
 
-#======整数参数
+#======Integer Parameters
 class NumberExtractor:
     @classmethod
     def INPUT_TYPES(cls):
@@ -170,8 +170,8 @@ class AddPrefixSuffix:
         return {
             "required": {
                 "input_string": ("STRING", {"default": ""}),
-                "prefix": ("STRING", {"default": "前缀符"}),
-                "suffix": ("STRING", {"default": "后缀符"}),
+                "prefix": ("STRING", {"default": "prefix"}),
+                "suffix": ("STRING", {"default": "suffix"}),
             },
             "optional": {},
         }
@@ -193,7 +193,7 @@ class ExtractSubstring:
         return {
             "required": {
                 "input_string": ("STRING", {"multiline": True, "default": ""}),  
-                "pattern": ("STRING", {"default": "标签始|标签尾"}),
+                "pattern": ("STRING", {"default": "startTag|endTag"}),
             },
             "optional": {},
         }
@@ -285,7 +285,7 @@ class SplitStringByDelimiter:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "input_string": ("STRING", {"default": "文本|内容"}),
+                "input_string": ("STRING", {"default": "text|content"}),
                 "delimiter": ("STRING", {"default": "|"}),
             },
             "optional": {},
@@ -312,7 +312,7 @@ class ProcessString:
         return {
             "required": {
                 "input_string": ("STRING", {"multiline": True, "default": ""}),
-                "option": (["不改变", "取数字", "取字母", "转大写", "转小写", "取中文", "去标点", "去换行", "去空行", "去空格", "去格式", "统计字数"], {"default": "不改变"}),
+                "option": (["No Change", "Digits", "Letters", "Uppercase", "Lowercase", "Chinese", "Remove Punctuation", "Remove Newlines", "Remove Empty Lines", "Remove Spaces", "Remove Whitespace", "Count Length"], {"default": "No Change"}),
             },
             "optional": {},
         }
@@ -324,27 +324,27 @@ class ProcessString:
     def IS_CHANGED(): return float("NaN")
 
     def process_string(self, input_string, option):
-        if option == "取数字":
+        if option == "Digits":
             result = ''.join(re.findall(r'\d', input_string))
-        elif option == "取字母":
+        elif option == "Letters":
             result = ''.join(filter(lambda char: char.isalpha() and not self.is_chinese(char), input_string))
-        elif option == "转大写":
+        elif option == "Uppercase":
             result = input_string.upper()
-        elif option == "转小写":
+        elif option == "Lowercase":
             result = input_string.lower()
-        elif option == "取中文":
+        elif option == "Chinese":
             result = ''.join(filter(self.is_chinese, input_string))
-        elif option == "去标点":
+        elif option == "Remove Punctuation":
             result = re.sub(r'[^\w\s\u4e00-\u9fff]', '', input_string)
-        elif option == "去换行":
+        elif option == "Remove Newlines":
             result = input_string.replace('\n', '')
-        elif option == "去空行":
+        elif option == "Remove Empty Lines":
             result = '\n'.join(filter(lambda line: line.strip(), input_string.splitlines()))
-        elif option == "去空格":
+        elif option == "Remove Spaces":
             result = input_string.replace(' ', '')
-        elif option == "去格式":
+        elif option == "Remove Whitespace":
             result = re.sub(r'\s+', '', input_string)
-        elif option == "统计字数":
+        elif option == "Count Length":
             result = str(len(input_string))
         else:
             result = input_string

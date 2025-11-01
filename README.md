@@ -1,3 +1,7 @@
+# This repo only patch Translation from Chinese for ComfyUI_StringOps to english.
+
+Original repo: https://github.com/MeeeyoAI/ComfyUI_StringOps
+
 # ComfyUI_StringOps
 **Efficient Text Processing Tool for ComfyUI Workflow**
 
