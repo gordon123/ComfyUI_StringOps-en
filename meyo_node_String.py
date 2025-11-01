@@ -163,7 +163,7 @@ class NumberExtractor:
             return (0, 0)
 
 
-#======添加前后缀
+#======Add Prefix/Suffix
 class AddPrefixSuffix:
     @classmethod
     def INPUT_TYPES(cls):
@@ -186,7 +186,7 @@ class AddPrefixSuffix:
         return (f"{prefix}{input_string}{suffix}",)
 
 
-#======提取标签之间
+#======Extract Between Tags
 class ExtractSubstring:
     @classmethod
     def INPUT_TYPES(cls):
@@ -229,7 +229,7 @@ class ExtractSubstring:
             return ("",)
 
 
-#======按数字范围提取
+#======Extract By Number Range
 class ExtractSubstringByIndices:
     @classmethod
     def INPUT_TYPES(cls):
@@ -237,7 +237,7 @@ class ExtractSubstringByIndices:
             "required": {
                 "input_string": ("STRING", {"default": ""}),
                 "indices": ("STRING", {"default": "2-6"}),
-                "direction": (["从前面", "从后面"], {"default": "从前面"}),
+                "direction": (["From Start", "From End"], {"default": "From Start"}),
             },
             "optional": {},
         }
@@ -267,9 +267,9 @@ class ExtractSubstringByIndices:
             if start_index > end_index:
                 start_index, end_index = end_index, start_index
 
-            if direction == "从前面":
+            if direction == "From Start":
                 return (input_string[start_index:end_index + 1],)
-            elif direction == "从后面":
+            elif direction == "From End":
                 start_index = len(input_string) - start_index - 1
                 end_index = len(input_string) - end_index - 1
                 if start_index > end_index:
@@ -277,9 +277,9 @@ class ExtractSubstringByIndices:
                 return (input_string[start_index:end_index + 1],)
         except ValueError:
             return ("",)
-			
+            
 
-#======分隔符拆分两边
+#======Split String By Delimiter
 class SplitStringByDelimiter:
     @classmethod
     def INPUT_TYPES(cls):
@@ -305,7 +305,7 @@ class SplitStringByDelimiter:
             return (input_string, "")
 
 
-#======常规处理字符
+#======Process String
 class ProcessString:
     @classmethod
     def INPUT_TYPES(cls):
@@ -356,15 +356,15 @@ class ProcessString:
         return '\u4e00' <= char <= '\u9fff'
 
 
-#======提取前后字符
+#======Extract Before/After
 class ExtractBeforeAfter:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_string": ("STRING", {"default": ""}),
-                "pattern": ("STRING", {"default": "标签符"}),
-                "position": (["保留最初之前", "保留最初之后", "保留最后之前", "保留最后之后"], {"default": "保留最初之前"}),
+                "pattern": ("STRING", {"default": "tag"}),
+                "position": (["Keep Before First", "Keep After First", "Keep Before Last", "Keep After Last"], {"default": "Keep Before First"}),
                 "include_delimiter": ("BOOLEAN", {"default": False}), 
             },
             "optional": {},
@@ -377,22 +377,22 @@ class ExtractBeforeAfter:
     def IS_CHANGED(): return float("NaN")
 
     def extract_before_after(self, input_string, pattern, position, include_delimiter):
-        if position == "保留最初之前":
+        if position == "Keep Before First":
             index = input_string.find(pattern)
             if index != -1:
                 result = input_string[:index + len(pattern) if include_delimiter else index]
                 return (result,)
-        elif position == "保留最初之后":
+        elif position == "Keep After First":
             index = input_string.find(pattern)
             if index != -1:
                 result = input_string[index:] if include_delimiter else input_string[index + len(pattern):]
                 return (result,)
-        elif position == "保留最后之前":
+        elif position == "Keep Before Last":
             index = input_string.rfind(pattern)
             if index != -1:
                 result = input_string[:index + len(pattern) if include_delimiter else index]
                 return (result,)
-        elif position == "保留最后之后":
+        elif position == "Keep After Last":
             index = input_string.rfind(pattern)
             if index != -1:
                 result = input_string[index:] if include_delimiter else input_string[index + len(pattern):]
@@ -400,7 +400,7 @@ class ExtractBeforeAfter:
         return ("",)
 
 
-#======简易文本替换
+#======Simple Text Replacer
 class SimpleTextReplacer:
     @classmethod
     def INPUT_TYPES(cls):
@@ -432,7 +432,7 @@ class SimpleTextReplacer:
             return (f"Error: {str(e)}",)
         
 
-#======替换第n次出现
+#======Replace Nth Occurrence
 class ReplaceNthOccurrence:
     @classmethod
     def INPUT_TYPES(cls):
@@ -440,8 +440,8 @@ class ReplaceNthOccurrence:
             "required": {
                 "original_text": ("STRING", {"multiline": True, "default": ""}),
                 "occurrence": ("INT", {"default": 1, "min": 0}),
-                "search_str": ("STRING", {"default": "替换前字符"}),
-                "replace_str": ("STRING", {"default": "替换后字符"}),
+                "search_str": ("STRING", {"default": "search_before"}),
+                "replace_str": ("STRING", {"default": "replace_after"}),
             },
             "optional": {},
         }
@@ -466,7 +466,7 @@ class ReplaceNthOccurrence:
         return (result,)
 
 
-#======多次出现依次替换
+#======Replace Multiple Occurrences in Order
 class ReplaceMultiple:
     @classmethod
     def INPUT_TYPES(cls):
@@ -502,13 +502,13 @@ class ReplaceMultiple:
             return ("",)
 
 
-#======批量替换字符
+#======Batch Replace Strings
 class BatchReplaceStrings:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "original_text": ("STRING", {"multiline": False, "default": "文本内容"}),
+                "original_text": ("STRING", {"multiline": False, "default": "text content"}),
                 "replacement_rules": ("STRING", {"multiline": True, "default": ""}),
             },
             "optional": {},
@@ -536,7 +536,7 @@ class BatchReplaceStrings:
         return (original_text,)
 
 
-#======随机行内容
+#======Random Line From Text
 class RandomLineFromText:
     @classmethod
     def INPUT_TYPES(cls):
@@ -560,15 +560,15 @@ class RandomLineFromText:
         return (random.choice(lines),)
 
 
-#======判断是否包含字符
+#======Check Substring Presence
 class CheckSubstringPresence:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "input_text": ("STRING", {"default": "文本内容"}),
-                "substring": ("STRING", {"default": "查找符1|查找符2"}),
-                "mode": (["同时满足", "任意满足"], {"default": "任意满足"}),
+                "input_text": ("STRING", {"default": "text content"}),
+                "substring": ("STRING", {"default": "search1|search2"}),
+                "mode": (["All match", "Any match"], {"default": "Any match"}),
             },
             "optional": {},
         }
@@ -582,26 +582,26 @@ class CheckSubstringPresence:
     def check_substring_presence(self, input_text, substring, mode):
         substrings = substring.split('|')
 
-        if mode == "同时满足":
+        if mode == "All match":
             for sub in substrings:
                 if sub not in input_text:
                     return (0,)
             return (1,)
-        elif mode == "任意满足":
+        elif mode == "Any match":
             for sub in substrings:
                 if sub in input_text:
                     return (1,)
             return (0,)
 
 
-#======段落每行添加前后缀
+#======Add Prefix/Suffix To Lines
 class AddPrefixSuffixToLines:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}),  
-                "prefix_suffix": ("STRING", {"default": "前缀符|后缀符"}),  
+                "prefix_suffix": ("STRING", {"default": "prefix|suffix"}),  
             },
             "optional": {},
         }
@@ -623,7 +623,7 @@ class AddPrefixSuffixToLines:
             return ("",)  
 
 
-#======段落提取指定索引行
+#======Extract And Combine Lines
 class ExtractAndCombineLines:
     @classmethod
     def INPUT_TYPES(cls):
@@ -663,15 +663,15 @@ class ExtractAndCombineLines:
             return ("",) 
 
 
-#======段落提取或移除字符行
+#======Filter Lines By Substrings
 class FilterLinesBySubstrings:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}), 
-                "substrings": ("STRING", {"default": "查找符1|查找符2"}), 
-                "action": (["保留", "移除"], {"default": "保留"}), 
+                "substrings": ("STRING", {"default": "search1|search2"}), 
+                "action": (["Keep", "Remove"], {"default": "Keep"}), 
             },
             "optional": {},
         }
@@ -689,7 +689,7 @@ class FilterLinesBySubstrings:
 
         for line in lines:
             contains_substring = any(substring in line for substring in substring_list)
-            if (action == "保留" and contains_substring) or (action == "移除" and not contains_substring):
+            if (action == "Keep" and contains_substring) or (action == "Remove" and not contains_substring):
                 result_lines.append(line)
 
         non_empty_lines = [line for line in result_lines if line.strip()]
@@ -697,7 +697,7 @@ class FilterLinesBySubstrings:
         return (result,)
 
 
-#======根据字数范围过滤文本行
+#======Filter Lines By Word Count
 class FilterLinesByWordCount:
     @classmethod
     def INPUT_TYPES(cls):
@@ -730,16 +730,16 @@ class FilterLinesByWordCount:
             return ("",)  
 
 
-#======按序号提取分割文本
+#======Split And Extract Text
 class SplitAndExtractText:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}),
-                "delimiter": ("STRING", {"default": "分隔符"}),
+                "delimiter": ("STRING", {"default": "delimiter"}),
                 "index": ("INT", {"default": 1, "min": 1}),
-                "order": (["顺序", "倒序"], {"default": "顺序"}),
+                "order": (["Sequential", "Reverse"], {"default": "Sequential"}),
                 "include_delimiter": ("BOOLEAN", {"default": False}), 
             },
             "optional": {},
@@ -758,19 +758,19 @@ class SplitAndExtractText:
             else:
                 parts = input_text.split(delimiter)
             
-            if order == "倒序":
+            if order == "Reverse":
                 parts = parts[::-1]
             
             if index > 0 and index <= len(parts):
                 selected_part = parts[index - 1]
                 
                 if include_delimiter and delimiter:
-                    if order == "顺序":
+                    if order == "Sequential":
                         if index > 1:
                             selected_part = delimiter + selected_part
                         if index < len(parts):
                             selected_part += delimiter
-                    elif order == "倒序":
+                    elif order == "Reverse":
                         if index > 1:
                             selected_part += delimiter
                         if index < len(parts):
@@ -786,14 +786,14 @@ class SplitAndExtractText:
             return ("",)
 
 
-#======文本出现次数
+#======Count Occurrences
 class CountOccurrences:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}),
-                "char": ("STRING", {"default": "查找符"}),
+                "char": ("STRING", {"default": "search"}),
             },
             "optional": {},
         }
@@ -816,14 +816,14 @@ class CountOccurrences:
             return (0, "0")
 
 
-#======文本拆分
+#======Extract Lines By Index
 class ExtractLinesByIndex:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}),
-                "delimiter": ("STRING", {"default": "标签符"}),  
+                "delimiter": ("STRING", {"default": "tag"}),  
                 "index": ("INT", {"default": 1, "min": 1}),  
             },
             "optional": {},
@@ -832,7 +832,7 @@ class ExtractLinesByIndex:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
     FUNCTION = "extract_lines_by_index"
     OUTPUT_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    OUTPUT_NAMES = ("文本1", "文本2", "文本3", "文本4", "文本5")
+    OUTPUT_NAMES = ("text1", "text2", "text3", "text4", "text5")
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
     def IS_CHANGED(): return float("NaN")
@@ -857,7 +857,7 @@ class ExtractLinesByIndex:
             return ("", "", "", "", "") 
 
 
-#======提取特定行
+#======Extract Specific Lines
 class ExtractSpecificLines:
     @classmethod
     def INPUT_TYPES(cls):
@@ -903,7 +903,7 @@ class ExtractSpecificLines:
         return tuple(results[:5] + [combined_result])
 
 
-#======删除标签内的内容
+#======Remove Content Between Chars
 class RemoveContentBetweenChars:
     @classmethod
     def INPUT_TYPES(cls):
@@ -936,14 +936,14 @@ class RemoveContentBetweenChars:
             return ("",)  
 
 
-#======随机打乱
+#======Shuffle Text Lines
 class ShuffleTextLines:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}), 
-                "delimiter": ("STRING", {"default": "分隔符"}),
+                "delimiter": ("STRING", {"default": "delimiter"}),
             },
             "optional": {"any": (any_typ,)} 
         }
@@ -976,16 +976,16 @@ class ShuffleTextLines:
         return (result,)
 
 
-#======判断返回内容
+#======Conditional Text Output
 class ConditionalTextOutput:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "original_content": ("STRING", {"multiline": True, "default": ""}), 
-                "check_text": ("STRING", {"default": "查找字符"}),
-                "text_if_exists": ("STRING", {"default": "存在返回内容"}),
-                "text_if_not_exists": ("STRING", {"default": "不存在返回内容"}),
+                "check_text": ("STRING", {"default": "search"}),
+                "text_if_exists": ("STRING", {"default": "text exists"}),
+                "text_if_not_exists": ("STRING", {"default": "text not exists"}),
             },
             "optional": {},
         }
@@ -1006,13 +1006,13 @@ class ConditionalTextOutput:
             return (text_if_not_exists,)
 
 
-#======文本按条件判断
+#======Text Condition Check
 class TextConditionCheck:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "original_content": ("STRING", {"multiline": True, "default": ""}),  # 输入多行文本
+                "original_content": ("STRING", {"multiline": True, "default": ""}),  # input multi-line text
                 "length_condition": ("STRING", {"default": "3-6"}),
                 "frequency_condition": ("STRING", {"default": ""}),
             },
@@ -1052,7 +1052,7 @@ class TextConditionCheck:
         return True
 
 
-#======文本组合
+#======Text Concatenation
 class TextConcatenation:
     @classmethod
     def INPUT_TYPES(cls):
@@ -1092,7 +1092,7 @@ class TextConcatenation:
         return tuple(outputs)
 
 
-#======提取多层指定数据
+#======Extract Specific Data
 class ExtractSpecificData:
     @classmethod
     def INPUT_TYPES(cls):
@@ -1100,7 +1100,7 @@ class ExtractSpecificData:
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}),
                 "rule1": ("STRING", {"default": "[3],@|2"}),
-                "rule2": ("STRING", {"default": "三,【|】"}),
+                "rule2": ("STRING", {"default": "three,【|】"}),
             },
             "optional": {},
         }
@@ -1178,14 +1178,16 @@ class ExtractSpecificData:
         return ("",)  
 
 
-#======指定字符行参数
+# remaining functions for GetIntParam, GetFloatParam, GenerateVideoPrompt left as-is but translated text values below
+
+#======Find First Line Content
 class FindFirstLineContent:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}), 
-                "target_char": ("STRING", {"default": "数据a"}),  
+                "target_char": ("STRING", {"default": "data_a"}),  
             },
             "optional": {},
         }
@@ -1209,9 +1211,9 @@ class FindFirstLineContent:
             return ("",)
         except Exception as e:
             return (f"Error: {str(e)}",) 
-        
 
-#======获取整数
+
+#======Get Integer Param
 class GetIntParam:
     @classmethod
     def INPUT_TYPES(cls):
@@ -1250,7 +1252,7 @@ class GetIntParam:
             return (f"Error: {str(e)}", None)
 
 
-#======获取浮点数
+#======Get Float Param
 class GetFloatParam:
     @classmethod
     def INPUT_TYPES(cls):
@@ -1289,14 +1291,14 @@ class GetFloatParam:
             return (None, f"Error: {str(e)}") 
 
 
-#======视频指令词模板
+#======Generate Video Prompt Template
 class GenerateVideoPrompt:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "input_text": ("STRING", {"multiline": True, "default": ""}), 
-                "mode": (["原文本", "文生视频", "图生视频", "首尾帧视频", "视频负面词"],)
+                "mode": (["Original Text", "Text-to-Video", "Image-to-Video", "First-Last Frame Video", "Video Negative Words"],)
             },
             "optional": {}
         }
@@ -1309,10 +1311,10 @@ class GenerateVideoPrompt:
 
     def generate_prompt(self, input_text, mode):
         try:
-            if mode == "原文本":
+            if mode == "Original Text":
                 return (input_text,)
                 
-            elif mode == "文生视频":
+            elif mode == "Text-to-Video":
                 prefix = """You are a highly experienced cinematic director, skilled in creating detailed and engaging visual narratives. When crafting prompts for text-to-video generation based on user input, your goal is to provide precise, chronological descriptions that guide the generation process. Your prompt should focus on clear visual details, including specific movements, appearances, camera angles, and environmental context.
 - Main Action: Start with a clear, concise description of the core action or event in the scene. This should be the focal point of the video.
 - Movement and Gestures: Describe any movements or gestures in the scene, whether from characters, objects, or the environment. Include specifics about how these movements are executed.
@@ -1326,7 +1328,7 @@ The following is the main content of mine:
 """
                 return (prefix + input_text,)
                 
-            elif mode == "图生视频":
+            elif mode == "Image-to-Video":
                 prefix = """You are tasked with creating a cinematic, highly detailed video scene based on a given image or user description. This prompt is designed to generate an immersive and visually dynamic video experience by focusing on precise, chronological details. The goal is to build a vivid and realistic portrayal of the scene, paying close attention to every element, from the main action to environmental nuances. The description should flow seamlessly, focusing on essential visual and cinematic aspects while adhering to the 200-word limit.
 - Main Action/Focus:
  Begin with a clear, concise description of the central action or key object in the scene. This could be a person, an object, or an event taking place, providing the core of the scene’s narrative.
@@ -1347,7 +1349,7 @@ The following is the main content of mine:
 """
                 return (prefix + input_text,)
                 
-            elif mode == "首尾帧视频":
+            elif mode == "First-Last Frame Video":
                 prefix = """You are an expert filmmaker renowned for transforming static imagery into compelling cinematic sequences. Using two images provided by the user, your task is to create a seamless visual narrative that bridges Image One to Image Two. Focus on the dynamic transition, highlighting actions, environmental shifts, and visual elements that unfold in chronological order. Craft your description with the language of cinematography, ensuring a fluid and immersive narrative.
 Requirements:
  Scene Continuity:
@@ -1358,7 +1360,7 @@ Requirements:
    - Capture notable actions, expressions, or gestures of characters or subjects.
    - Describe environmental details such as lighting, color palette, weather, and atmosphere.
    - Incorporate cinematographic techniques, including camera angles, zooms, tracking shots, or any dynamic movements.
- Emotional and Contextual Flow:
+Emotional and Contextual Flow:
    - Highlight the emotional connection between the two images or the tone shift (e.g., from calm to tense, or from chaotic to serene).
    - Prioritize visual coherence, even if there are discrepancies between the user’s input and the images.
  Output Format:
@@ -1370,7 +1372,7 @@ The following is the main content of mine:
 """
                 return (prefix + input_text,)
                 
-            elif mode == "视频负面词":
+            elif mode == "Video Negative Words":
                 return (
 """Overexposure, static artifacts, blurred details, visible subtitles, low-resolution paintings, still imagery, overly gray tones, poor quality, JPEG compression artifacts, unsightly distortions, mutilated features, redundant or extra fingers, poorly rendered hands, poorly depicted faces, anatomical deformities, facial disfigurements, misshapen limbs, fused or distorted fingers, cluttered and distracting background elements, extra or missing limbs (e.g., three legs), overcrowded backgrounds with excessive figures, reversed or upside-down compositions""",)
                 
