@@ -22,7 +22,7 @@ class GetCurrentTime:
     FUNCTION = "get_current_time"
     CATEGORY = "Meeeyo/Functional"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def get_current_time(self, prefix, any=None):
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -43,7 +43,7 @@ class SimpleRandomSeed:
     FUNCTION = "generate_random_seed"
     CATEGORY = "Meeeyo/Functional"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def generate_random_seed(self, any=None):
         try:
@@ -74,7 +74,7 @@ class SelectionParameter:
     FUNCTION = "gender_output"
     CATEGORY = "Meeeyo/Functional"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def gender_output(self, gender, version, additional_text, any=None):
         gender_value = 1 if gender == "男性" else 2
@@ -100,7 +100,7 @@ class ReadWebNode:
     FUNCTION = "fetch_data"
     CATEGORY = "Meeeyo/Functional"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def fetch_data(self, Instruction, prefix_suffix, any=None):
         if "|" in prefix_suffix:
@@ -137,7 +137,7 @@ class DecodePreview:
     OUTPUT_NODE = True
     CATEGORY = "Meeeyo/Functional"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def preview(self, latent, vae, filename_prefix="Preview", prompt=None, extra_pnginfo=None):
         images = vae.decode(latent["samples"])

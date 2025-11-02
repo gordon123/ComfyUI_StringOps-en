@@ -20,7 +20,7 @@ class CompareInt:
     FUNCTION = "compare_float_to_range"
     CATEGORY = "Meeeyo/Number"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def compare_float_to_range(self, input_float, range, any=None):
         try:
@@ -54,7 +54,7 @@ class FloatToInteger:
     FUNCTION = "convert_float_to_integer"
     CATEGORY = "Meeeyo/Number"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def convert_float_to_integer(self, float_value, operation, any=None):
         if operation == "Round":
@@ -85,7 +85,7 @@ class GenerateNumbers:
     FUNCTION = "generate_numbers"
     CATEGORY = "Meeeyo/Number"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def generate_numbers(self, range_rule, mode, prefix_suffix, any=None):
         try:
@@ -126,7 +126,7 @@ class GetRandomIntegerInRange:
     FUNCTION = "get_random_integer_in_range"
     CATEGORY = "Meeeyo/Number"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def get_random_integer_in_range(self, range_str, any=None):
         try:

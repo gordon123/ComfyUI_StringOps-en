@@ -18,7 +18,7 @@ class SingleTextInput:
     OUTPUT_NODE = False
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def process_input(self, text):
         return (text,)
@@ -40,7 +40,7 @@ class TextToList:
     OUTPUT_IS_LIST = (True,)
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def split_text(self, text, delimiter):
         if not delimiter:
@@ -72,7 +72,7 @@ class TextConcatenator:
     FUNCTION = "combine_texts"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def combine_texts(self, text1, text2, text3, text4, combine_order, separator):
         try:
@@ -120,7 +120,7 @@ class MultiParamInputNode:
     OUTPUT_NODE = False
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def process_inputs(self, text1, text2, int1, int2):
         return (text1, text2, int1, int2)
@@ -142,7 +142,7 @@ class NumberExtractor:
     OUTPUT_TYPES = ("INT", "INT")
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_lines_by_index(self, input_text):
         try:
@@ -180,7 +180,7 @@ class AddPrefixSuffix:
     FUNCTION = "add_prefix_suffix"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def add_prefix_suffix(self, input_string, prefix, suffix):
         return (f"{prefix}{input_string}{suffix}",)
@@ -202,7 +202,7 @@ class ExtractSubstring:
     FUNCTION = "extract_substring"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_substring(self, input_string, pattern):
         try:
@@ -246,7 +246,7 @@ class ExtractSubstringByIndices:
     FUNCTION = "extract_substring_by_indices"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_substring_by_indices(self, input_string, indices, direction):
         try:
@@ -295,7 +295,7 @@ class SplitStringByDelimiter:
     FUNCTION = "split_string_by_delimiter"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def split_string_by_delimiter(self, input_string, delimiter):
         parts = input_string.split(delimiter, 1)
@@ -321,7 +321,7 @@ class ProcessString:
     FUNCTION = "process_string"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def process_string(self, input_string, option):
         if option == "Digits":
@@ -374,7 +374,7 @@ class ExtractBeforeAfter:
     FUNCTION = "extract_before_after"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_before_after(self, input_string, pattern, position, include_delimiter):
         if position == "Keep Before First":
@@ -416,7 +416,7 @@ class SimpleTextReplacer:
     FUNCTION = "replace_text"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def replace_text(self, input_string, find_text, replace_text):
         try:
@@ -450,7 +450,7 @@ class ReplaceNthOccurrence:
     FUNCTION = "replace_nth_occurrence"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def replace_nth_occurrence(self, original_text, occurrence, search_str, replace_str):
         if occurrence == 0:
@@ -482,7 +482,7 @@ class ReplaceMultiple:
     FUNCTION = "replace_multiple"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def replace_multiple(self, original_text, replacement_rule):
         try:
@@ -518,7 +518,7 @@ class BatchReplaceStrings:
     FUNCTION = "batch_replace_strings"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def batch_replace_strings(self, original_text, replacement_rules):
         rules = replacement_rules.strip().split('\n')
@@ -551,7 +551,7 @@ class RandomLineFromText:
     FUNCTION = "get_random_line"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def get_random_line(self, input_text, any=None):
         lines = input_text.strip().splitlines()
@@ -577,7 +577,7 @@ class CheckSubstringPresence:
     FUNCTION = "check_substring_presence"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def check_substring_presence(self, input_text, substring, mode):
         substrings = substring.split('|')
@@ -610,7 +610,7 @@ class AddPrefixSuffixToLines:
     FUNCTION = "add_prefix_suffix_to_lines"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def add_prefix_suffix_to_lines(self, prefix_suffix, input_text):
         try:
@@ -639,7 +639,7 @@ class ExtractAndCombineLines:
     FUNCTION = "extract_and_combine_lines"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_and_combine_lines(self, input_text, line_indices):
         try:
@@ -680,7 +680,7 @@ class FilterLinesBySubstrings:
     FUNCTION = "filter_lines_by_substrings"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def filter_lines_by_substrings(self, input_text, substrings, action):
         lines = input_text.splitlines()
@@ -713,7 +713,7 @@ class FilterLinesByWordCount:
     FUNCTION = "filter_lines_by_word_count"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def filter_lines_by_word_count(self, input_text, word_count_range):
         try:
@@ -749,7 +749,7 @@ class SplitAndExtractText:
     FUNCTION = "split_and_extract"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def split_and_extract(self, input_text, delimiter, index, order, include_delimiter):
         try:
@@ -802,7 +802,7 @@ class CountOccurrences:
     FUNCTION = "count_text_segments"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def count_text_segments(self, input_text, char):
         try:
@@ -835,7 +835,7 @@ class ExtractLinesByIndex:
     OUTPUT_NAMES = ("text1", "text2", "text3", "text4", "text5")
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_lines_by_index(self, input_text, index, delimiter):
         try:
@@ -874,7 +874,7 @@ class ExtractSpecificLines:
     FUNCTION = "extract_specific_lines"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_specific_lines(self, input_text, line_indices, split_char):
         if not split_char or split_char == "\n":
@@ -919,7 +919,7 @@ class RemoveContentBetweenChars:
     FUNCTION = "remove_content_between_chars"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def remove_content_between_chars(self, input_text, chars):
         try:
@@ -952,7 +952,7 @@ class ShuffleTextLines:
     FUNCTION = "shuffle_text_lines"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def shuffle_text_lines(self, input_text, delimiter, any=None):
         if delimiter == "":
@@ -994,7 +994,7 @@ class ConditionalTextOutput:
     FUNCTION = "conditional_text_output"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def conditional_text_output(self, original_content, check_text, text_if_exists, text_if_not_exists):
         if not check_text:
@@ -1023,7 +1023,7 @@ class TextConditionCheck:
     FUNCTION = "text_condition_check"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def text_condition_check(self, original_content, length_condition, frequency_condition):
         length_valid = self.check_length_condition(original_content, length_condition)
@@ -1069,7 +1069,7 @@ class TextConcatenation:
     FUNCTION = "text_concatenation"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def text_concatenation(self, original_text, concatenation_rules, split_char):
         if split_char:
@@ -1109,7 +1109,7 @@ class ExtractSpecificData:
     FUNCTION = "extract_specific_data"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def extract_specific_data(self, input_text, rule1, rule2):
         if rule1.strip():
@@ -1196,7 +1196,7 @@ class FindFirstLineContent:
     FUNCTION = "find_first_line_content"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def find_first_line_content(self, input_text, target_char):
         try:
@@ -1229,7 +1229,7 @@ class GetIntParam:
     FUNCTION = "find_first_line_content"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def find_first_line_content(self, input_text, target_char):
         try:

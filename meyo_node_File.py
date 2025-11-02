@@ -24,7 +24,7 @@ class GenericImageLoader:
     OUTPUT_NODE = False
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def load_image(self, image_input):
         path = image_input.strip()
@@ -89,7 +89,7 @@ class LoadAndAdjustImage:
     FUNCTION = "load_image"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def load_image(self, image, max_dimension, size_option):
         image_path = folder_paths.get_annotated_filepath(image)
@@ -222,7 +222,7 @@ class ImageAdjuster:
     FUNCTION = "process_image"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def process_image(self, image, mask, max_dimension=1024, size_option="Custom"):
         batch_size = image.shape[0]
@@ -355,7 +355,7 @@ class CustomCrop:
     FUNCTION = "process_image"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def process_image(self, image, mask, width=768, height=768):
         input_image = Image.fromarray((image.squeeze(0).numpy() * 255).astype(np.uint8))
@@ -417,7 +417,7 @@ class SaveImagEX:
     OUTPUT_NODE = True
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
 
     def save_image(self, image, save_path, image_name, image_format):
         if not isinstance(image, torch.Tensor):
