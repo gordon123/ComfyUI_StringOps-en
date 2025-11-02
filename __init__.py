@@ -103,7 +103,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
    "ExtractSubstring": "Extract Between Tags🐠meeeyo.com",
    "ExtractSubstringByIndices": "Extract By Number Range🐠meeeyo.com",
    "SplitStringByDelimiter": "Split String By Delimiter🐠meeeyo.com",
-   "ProcessString": "Process String🐠meeeyo.com",
+   "ProcessString": "👉 Process String🐠meeeyo.com",
    "ExtractBeforeAfter": "Extract Before/After🐠meeeyo.com",
    "SimpleTextReplacer": "Simple Text Replacer🐠meeeyo.com",
    "ReplaceNthOccurrence": "Replace Nth Occurrence🐠meeeyo.com",
