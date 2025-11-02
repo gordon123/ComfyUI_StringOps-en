@@ -480,7 +480,7 @@ class FileCopyCutNode:
     FUNCTION = "copy_cut_file"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def copy_cut_file(self, source_path, destination_path, operation, any=None):
         result = "Operation failed"
@@ -524,7 +524,7 @@ class FileNameReplacer:
     FUNCTION = "replace_file_name"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def replace_file_name(self, file_path, new_file_name, any=None):
         dir_name = os.path.dirname(file_path)
@@ -553,7 +553,7 @@ class WriteToTxtFile:
     FUNCTION = "write_to_txt"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def write_to_txt(self, text_content, file_path, any=None):
         try:
@@ -588,7 +588,7 @@ class FileDeleteNode:
     FUNCTION = "delete_files"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def delete_files(self, items_to_delete, any=None):
         result = "执行成功: 所有指定项已从output目录删除"
@@ -648,7 +648,7 @@ class FileListAndSuffix:
     FUNCTION = "file_list_and_suffix"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def file_list_and_suffix(self, folder_path, file_extension, any=None):
         try:
@@ -693,7 +693,7 @@ class TextToImage:
     FUNCTION = "generate_text_image"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def generate_text_image(self, text, font, max_width, font_properties, font_stroke, font_background):
         fonts_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "fonts")
@@ -940,7 +940,7 @@ class ImageOverlayAlignment:
     FUNCTION = "overlay_images"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def overlay_images(self, image1, image2, alignment, offset, scale, opacity):
         image1_np = image1.cpu().numpy().squeeze()
@@ -1047,7 +1047,7 @@ class ReadExcelData:
     FUNCTION = "read_excel_data"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def read_excel_data(self, excel_path, sheet_name, row_range, col_range, any=None):
         try:
@@ -1103,7 +1103,7 @@ class WriteExcelData:
     FUNCTION = "write_excel_data"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def write_excel_data(self, excel_path, sheet_name, row_range, col_range, data, any=None):
         try:
@@ -1175,7 +1175,7 @@ class WriteExcelImage:
     FUNCTION = "write_image"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def write_image(self, excel_path, sheet_name, row_range, col_range, image_path, any=None):
         try:
@@ -1235,7 +1235,7 @@ class FindExcelData:
     FUNCTION = "find_excel_data"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def find_excel_data(self, excel_path, sheet_name, search_content, search_mode, any=None):
         try:
@@ -1287,7 +1287,7 @@ class ReadExcelRowOrColumnDiff:
     FUNCTION = "read_excel_row_or_column_diff"
     CATEGORY = "Meeeyo/File"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def read_excel_row_or_column_diff(self, excel_path, sheet_name, read_mode, indices, any=None):
         try:

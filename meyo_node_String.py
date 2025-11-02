@@ -18,7 +18,7 @@ class SingleTextInput:
     OUTPUT_NODE = False
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
+    def IS_CHANGED(self=None, *args, **kwargs): return float("NaN")
 
     def process_input(self, text):
         return (text,)
@@ -321,7 +321,7 @@ class ProcessString:
     FUNCTION = "process_string"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(self, *args, **kwargs): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def process_string(self, input_string, option):
         if option == "Digits":
@@ -1268,7 +1268,7 @@ class GetFloatParam:
     FUNCTION = "find_first_line_content"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def find_first_line_content(self, input_text, target_char):
         try:
@@ -1307,7 +1307,7 @@ class GenerateVideoPrompt:
     FUNCTION = "generate_prompt"
     CATEGORY = "Meeeyo/String"
     DESCRIPTION = note
-    def IS_CHANGED(): return float("NaN")
+    def IS_CHANGED(*args, **kwargs): return float("NaN")
 
     def generate_prompt(self, input_text, mode):
         try:
